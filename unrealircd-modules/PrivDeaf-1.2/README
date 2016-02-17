@@ -1,0 +1,23 @@
+ABOUT
+======
+This module adds an usermode +D. If set, you will no longer receive
+any private messages/notices (except from opers and U-lines/services).
+Any person trying to msg you will get a notice about this.
+
+REQUIRES
+=========
+This module works on UnrealIRCd 3.2.x and UnrealIRCd 4.
+
+INSTALL
+========
+Just run: ./build
+
+CONFIG
+=======
+All you need to do is add the loadmodule line to your unrealircd.conf:
+
+For UnrealIRCd 3.2.x:
+loadmodule "src/modules/privdeaf.so";
+
+For UnrealIRCd 4:
+loadmodule "third/privdeaf";

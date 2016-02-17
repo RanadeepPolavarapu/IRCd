@@ -1,0 +1,72 @@
+==[ v0.1, Tue Jan  4 02:24:40 CET 2005 ]==
+- First release (internal)
+
+==[ v0.1.1, Thu Jan  6 17:13:56 CET 2005 ]==
+- Public release
+- no code changes, only README/etc updates
+
+==[ v1.0beta1, Mon Jun 13 02:26:16 CEST 2005 ]==
+- Moved all configurable parts (except DEBUGMODE) to the configfile.
+  Besides making it much easier to change configuration items, this
+  also makes it useful to have a precompiled windows version now.
+- Added ::except-hosts, which is especially needed for CGI:IRC
+  gateways, suggested by RyaN and Niklas.
+- Improved default regexes to include more digits names. I explicitly
+  did not include 4 digit names however because some users might have
+  nicks like 'Girl1984' etc. Suggested by RyaN.
+- I didn't notice this earlier on, but the score values for the regexes
+  were simply ignored and always +1... This has now been fixed. As a
+  side effect this means the regex scores have much more impact so I
+  hope this doesn't cause too many trouble.
+
+==[ v1.0beta2, Fri Jun 17 17:29:03 CEST 2005 ]==
+- ::except-hosts wasn't working, reported by Niklas.
+- Removed 'y' from all-consonant check, reducing false positives.
+- Moved the consonant/vowel/digit checks to a custom function that does
+  the counting. This has 2 effects:
+  a) much faster than regex, a test on my a1800+ shows that antirandom
+     now executes in ~85 microseconds instead of ~700 microseconds for
+     the same usernames (this excludes the time spend on the exception
+     list btw). Basically this means that the AntiRandom routine alone
+     can process roughly ~7000 local users/sec on my amd 1800+ (that
+     is: assuming a worst-case 120usec/user [=8333users/sec] and some
+     exception list stuff subtracted, and [near] 100% CPU).
+     In short, if you got a fast GHz machine, you should be able to
+     deal even with the greatest threats (as far as AntiRandom is
+     concerned, at least).
+  b) we now get proper scores. For example 5 digits get a score of 5,
+     6 digits get a score of 6, etc.. In the previous (beta) version
+     you might have got a score of 5+6=11 in case of 6 digits.
+     Naturally this also means the overall score you get will be lower
+     (and more reasonable).
+- Added a chapter to the README about performance
+
+==[ v1.0, Tue Jun 21 19:28:05 CEST 2005 ]==
+- Made it work on windows (ifdef'ed regexes out, they are not used by
+  us anymore anyway).
+- Minor README updates
+- Released as v1.0
+
+==[ v1.1, Fri Jul 22 03:01:49 CEST 2005 ]==
+- Fixed digitscheck not working properly.
+- Fixed some checks, they were not using the highest encountered value
+  (eg: number of digits) but rather the last found one.
+- The above 2 things might have caused quite a few misses, especially
+  with numbered bots (eg: ABC21423).
+
+==[ v1.2, Fri Dec  9 17:04:12 CET 2005 ]==
+- Added 'warn' ban action, this will cause a warning on every connect
+  that would have caused an action. Useful for testing.
+- Now also logging to the ircd log, this mainly affects the 'warn' option
+  or if show-failedconnects is enabled.
+
+==[ v1.3, Wed Nov  9 09:59:06 CET 2011 ]==
+- Added convert-to-lowercase option, which defaults to on:
+  when enabled, this converts the nick/ident/realname to lowercase
+  before doing the 'random check', this way bots will be detected
+  which use mixed upper/lowercase, such as GnStA5FYhiTH51TUkf.
+
+==[ v1.4, Sat Oct 17 18:49:44 CEST 2015 ]==
+- Added support for UnrealIRCd 4
+- Auto-detect UnrealIRCd version, compile and install
+- Rename sample.conf to antirandom.conf

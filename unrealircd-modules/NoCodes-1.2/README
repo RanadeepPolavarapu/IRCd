@@ -1,0 +1,22 @@
+ABOUT
+======
+This module will strip control codes (bold/underline/reverse) if
+chanmode +S is set, and will block such messages if the chan is +c.
+ 
+REQUIRES
+=========
+This module works on UnrealIRCd 3.2 and UnrealIRCd 4.
+
+INSTALL
+========
+Just run: ./build
+
+CONFIG
+=======
+All you need to do is add the loadmodule line to your unrealircd.conf:
+
+For UnrealIRCd 3.2.x:
+loadmodule "src/modules/nocodes.so";
+
+For UnrealIRCd 4:
+loadmodule "third/nocodes";

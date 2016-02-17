@@ -1,0 +1,58 @@
+******************************************************************
+Command /ircops, m_ircops.c -- Documentation
+******************************************************************
+
+Table of contents:
+------------------
+
+1. Description
+2. Authors
+3. Installation
+4. Configuration
+5. In case of trouble...
+
+==================================================================
+1. Description
+==================================================================
+
+Command /ircops: displays you a list of all IRC Operators available
+on IRC (except who are hiding (+H) if you aren't an IRC operator).
+
+Syntax is simply /IRCOPS, no additional parameters are supported. 
+
+==================================================================
+2. Authors
+==================================================================
+
+An m_ircops module already existed before, however the author,
+whose name I don't know, deleted his module for some reasons,
+so Angrywolf coded a new one.
+Currently maintained by: Syzop <syzop@vulnscan.org>
+Original developer (wrote 95% of the code): AngryWolf
+<angrywolf@flashmail.com>
+
+Module originally requested by Some3333, LRL and many other people.
+
+==================================================================
+3. Installation
+==================================================================
+
+Just run: ./build
+
+==================================================================
+4. Configuration
+==================================================================
+
+All you need to do is add the loadmodule line to your unrealircd.conf:
+
+For UnrealIRCd 3.2.x:
+loadmodule "src/modules/m_ircops.so";
+
+For UnrealIRCd 4:
+loadmodule "third/m_ircops";
+
+==================================================================
+5. In case of trouble...
+==================================================================
+
+If the module fails to compile you can contact syzop@vulnscan.org

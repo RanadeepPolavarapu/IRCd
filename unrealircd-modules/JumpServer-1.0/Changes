@@ -1,0 +1,17 @@
+v0.0.1, Sat Apr 17 04:08:24 CEST 2004
+- First public release (tagged as 'EXPERIMENTAL')
+v0.0.2, Sun May 16 21:59:32 CEST 2004
+- Added option to redirect SSL users to another server, requested by Tank.
+- Now no longer tagged as experimental.
+v0.3, Sun Dec 12 19:17:41 CET 2004
+- Now using X.Y versions instead of X.Y.Z.
+- Partial recode (~50%)
+- Fixed bug where '/JUMPSERVER' said ENABLED while in fact it was not,
+  reported by Dionisios K.
+v0.4, Mon Aug  9 11:41:01 CEST 2010
+- Just documentation updates: Stealth noticed that on several places
+  the example usage had the word 'INCOMING' as 2nd parameter, which
+  should have been 'NEW'.
+v1.0, Sat Oct 17 18:52:11 CEST 2015
+- Support UnrealIRCd 4
+- Module renamed: m_jumpserver -> jumpserver

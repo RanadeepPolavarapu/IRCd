@@ -1,0 +1,66 @@
+ABOUT
+======
+This module adds the ability to 'redirect' users to another server.
+This is useful if you are going to take the server offline for
+maintenance (eg: upgrading, server reboot, etc).
+
+Any feedback is welcome! (syzop@unrealircd.com)
+
+IMPORTANT NOTE / HOW IT WORKS:
+ This module sends a RPL_REDIR (010) numeric which will redirect any people
+ automatically to another server IF SUPPORTED BY THE CLIENT.
+ It is currently only supported by a few clients like mIRC.
+ People with other clients will however see the <reason> field every time
+ they try to reconnect (bit like a gline) so they can understand what's going
+ on and should be able to switch manually.
+
+ Overall, using this module (like right before you are taking the server down
+ for a long period) can be quite helpful in some cases.
+
+The usage of the command is:
+ /JUMPSERVER <server>[:port] <NEW|ALL> <reason>
+If 'NEW' is chosen then only new (incoming) clients will be redirected/rejected.
+If 'ALL' is chosen then ALL clients (except opers) are redirected immediately (+incomming).
+and if you also want to specify an SSL server:
+ /JUMPSERVER <server>[:port]/<sslserver>[:sslport]> <NEW|ALL> <reason>
+If 'NEW' is chosen then only new (incoming) clients will be redirected/rejected.
+If 'ALL' is chosen then ALL clients (except opers) are redirected immediately (+incomming).
+
+ /JUMPSERVER
+Will show the current status.
+
+ /JUMPSERVER OFF
+Will stop any redirects.
+
+So you could for example use the module like this:
+ /msg OperServ GLOBAL blah.testnet.com is going down for maintenance, please switch to another server
+ /jumpserver other.testnet.com NEW This server is going down for maintenance, please use other.testnet.com instead.
+ *Wait 10 minutes*
+ /jumpserver other.testnet.com ALL This server is going down for maintenance, please use other.testnet.com instead.
+ */die*
+
+Or if you have any SSL clients use '/' and also specify an SSL server:
+ /msg OperServ GLOBAL blah.testnet.com is going down for maintenance, please switch to another server
+ /jumpserver other.testnet.com/ssl.testnet.com:6697 NEW This server is going down for maintenance, please use other.testnet.com instead.
+ *Wait 10 minutes*
+ /jumpserver other.testnet.com/ssl.testnet.com:6697 ALL This server is going down for maintenance, please use other.testnet.com instead.
+ */die*
+
+
+REQUIRES
+=========
+This module works on UnrealIRCd 3.2.x and UnrealIRCd 4.
+
+INSTALL
+========
+Just run: ./build
+
+CONFIG
+=======
+All you need to do is add the loadmodule line to your unrealircd.conf:
+
+For UnrealIRCd 3.2.x:
+loadmodule "src/modules/jumpserver.so";
+
+For UnrealIRCd 4:
+loadmodule "third/jumpserver";

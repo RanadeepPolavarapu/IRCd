@@ -1,0 +1,134 @@
+ABOUT
+======
+This module adds a new extban type ~T by which you can take various
+actions upon specified words/text.
+
+The syntax is: ~T:<action>:<wildcardexpression>
+For example:   ~T:block:*fuck*
+
+Note that channel operators (halfop and above) are exempted from filtering.
+
+Valid actions (IF enabled!) are:
+
+block
+------
+This will simply block the whole line of text and inform the user.
+
+Ex:
+[15:03:13] * Zwei sets mode: +b ~T:block:*test*
+[15:03:19] <Ein> test
+#blah Message blocked due to a text ban (#blah)
+
+
+censor
+-------
+This will replace the matched word with <censored> (=configurable in
+the module).
+
+Ex:
+[15:03:13] * Zwei sets mode: +b ~T:censor:*test*
+[15:03:19] <Ein> this is a test
+will appear as:
+[15:03:19] <Ein> this is a <censored>
+
+ADDITIONAL NOTES
+=================
+
+UHOST FEATURE
+--------------
+If UHOSTFEATURE is enabled (see .c file), then the syntax is different:
+Then the syntax is: ~T:<uhost>:<action>:<wildcardexpression>
+And for example:    ~T:*@*.aol.com:block:*fuck*
+
+OTHER REMARKS
+--------------
+
+- Regexes are not accepted (because of being dangerous and slow)
+- The 'censor' action (currently) only allow "simple matches",
+  which means only word*, *word, *word, word, *word* are accepted,
+  and not *wo*rd* or *wo??r* and such things.
+  This could be improved one day, but the current match options are in
+  many cases sufficient, and not implementing the more complex actions can
+  save a lot of CPU.
+- For the 'block' action, the text is matched against the entire sentence,
+  so in this case you can freely use '*' and '?' and as much as you want.
+- For the 'block' action, you can use an underscore ('_') which will match
+  both '_' and ' ' (space). This can be used to for example block "is using"
+  by setting a +b ~T:block:*is_using*
+- Colors and control codes (underline/bold/reverse) are stripped
+  before we try to match, so they should not (and cannot) be
+  specified in the +b ~T.
+- Only messages from normal and voiced users are blocked/filtered,
+  messages from halfops and higher are not.
+
+NOTE ABOUT SPEED
+=================
+(figures below are with UHOSTFEATURE disabled)
+The speed impact depends on several factors, like actions enabled, the
+number of bans set, and more. Below we will try to give you the PEAK
+numbers that a box of mine, an A1800+ (1.53GHz) can handle, those are
+textbans that consume most CPU of all (like 510 byte messages, etc),
+all using the default settings (like max 15 textbans per channel).
+
+Note that messages are only processed (and thus consume CPU) if..:
+- The channel has any textban
+- The client the message is from is LOCAL
+- The client the message is from is not an halfop or higher
+- The client the message is from is not an IRCOp
+
+So if you have 100 users in a channel, of which 25 on your server,
+of which 20 are not a chanop/oper, then only for those 20 the
+textbans will be checked.
+
+Now, in-depth info per-action follows:
+
+block
+------
+This is the fastest of all, and speed impact of this is hardly ever
+a problem.
+
+RAW PEAK: 42 usecs per-message peak with 15 bans, 510 byte messages
+PEAK: The module is capable of processing ~20000 (20K) messages per second
+RAW AVG: 10-12 usecs
+AVG # OF LINES: 90K msgs/second
+AVG: <0.5% CPU
+
+censor
+-------
+This is slower than 'block' (about 3 times typical, 5 times peak).
+Enabling/disabling this depends on the network, in many cases it should
+be no problem.
+
+RAW PEAK: 310 usec peak with 15 one-letter bans, 510 byte messages
+PEAK: The module is capable of processing ~3000 (3K) messages per second
+RAW AVG: 30 usec (9 normal bans, avg text lines)
+AVG # OF LINES: 33K msgs/second
+AVG: 0-2% CPU
+
+REQUIRES
+=========
+This module works on UnrealIRCd 3.2.x and UnrealIRCd 4.
+
+INSTALL
+========
+Just run: ./build
+
+CONFIG
+=======
+All you need to do is add the loadmodule line to your unrealircd.conf:
+
+For UnrealIRCd 3.2.x:
+loadmodule "src/modules/textban.so";
+
+For UnrealIRCd 4:
+loadmodule "third/textban";
+
+THANKS
+=======
+Thanks go to Deltaanime (www.deltaanime.net) and HyperMutt LLC (www.hypermutt.net)
+for sponsoring several features in this module!
+
+SUPPORT
+========
+This module does not come with any support, but if you find any bugs or have
+any suggestions, mail them to syzop@vulnscan.org

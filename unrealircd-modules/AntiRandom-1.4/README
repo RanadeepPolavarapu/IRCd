@@ -1,0 +1,66 @@
+ABOUT
+======
+SUMMARY:
+This module tries to detect semi-random nicks/idents/realnames,
+therefore trying to get rid of some very annoying trojans/bots.
+
+TERMS USED:
+False positive = a user caught as "bad" while (s)he is not
+False negative = a "bad" user that isn't caught.
+
+DETAILS / WORDS OF CAUTION [!!PLEASE READ!!]:
+Because users sometimes look like having a random nick/username
+the ircd might catch some innocent users. Also, if you use for
+example CGI:IRC then be careful because if you encode the host
+in the ident part (aka: 'd030f03cd') then the module could catch
+it as "random" and kill those poor users.
+
+Several tests indicated that this module can be quite effective
+against those bots and has few false positives, but it's impossible
+to have 0 false positives, so expect to deal with it from time to
+time that a poor user gets killed.
+
+If you got (a lot of) non-English users with for example Russian,
+Hebrew, Chinese, Japanese, .. nicks/idents/realnames, then this
+module might catch them as "random" too, because the rules we use
+to call something random is based on the English language (although
+I suspect it to work fine as well with many other western European
+languages).
+
+Feedback is always welcomed (syzop@vulnscan.org), both success
+stories and problems.
+
+PERFORMANCE
+============
+Since the module has to do ~500 (small) checks, this does not come
+without any performance penalty.
+That said, this module has been severely optimized and tests on my
+AMD 1800+ (1.53GHz) show that it can process ~7000 local users/sec
+(with near-100% CPU)..
+So, if you got a fast GHz machine, you should be able to deal with
+even the biggest attacks (as far as AntiRandom is concerned, at
+least ;p).
+
+The exception list of course also has a performance impact, but
+thanks to it being ip/host only, it is not severe.
+Tests on my AMD 1800+ show that for 20 entries (containing a mixture
+of *.somehost.blah.net and 192.168.5.* etc) ~15 microseconds of CPU
+was spent (worst-case).
+So, unless you get like >100 entries, this shouldn't be any problem.
+
+AUTHOR
+=======
+Bram Matthys (Syzop)
+
+REQUIRES
+=========
+Thid module works on UnrealIRCd 3.2.x and on UnrealIRCd 4.
+
+INSTALL
+========
+Just run: ./build
+
+CONFIGURATION
+==============
+Configuring the module is MANDATORY.
+Have a look at antirandom.conf to see all the configuration directives.

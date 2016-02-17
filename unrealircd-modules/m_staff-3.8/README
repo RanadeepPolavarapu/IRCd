@@ -1,0 +1,52 @@
+******************************************************************
+Command /staff, m_staff.c -- Documentation
+******************************************************************
+
+Table of contents:
+------------------
+1. Description
+2. Authors
+3. Installation
+4. Configuration
+5. In case of trouble...
+
+==================================================================
+1. Description
+==================================================================
+
+This module provides command /STAFF, which is designed to list
+all the staff members of your network, as well as any additional
+information you'd like people to see. Whenever someone types
+/staff, the contents of the network.staff file (or another file/URL
+specified in the configuration) is shown to the person.
+You can reload the file by typing /REHASH or /REHASH -staff.
+The command also works remotely: /staff <servermask>.
+
+==================================================================
+2. Authors
+==================================================================
+
+Currently maintained by: Syzop <syzop@vulnscan.org>
+Original developer (wrote 95% of the code): AngryWolf
+<angrywolf@flashmail.com>
+
+Module originally requested by Dylan.
+
+==================================================================
+3. Installation
+==================================================================
+
+Just run: ./build
+
+==================================================================
+4. Configuration
+==================================================================
+
+See m_staff.conf
+
+==================================================================
+5. In case of trouble...
+==================================================================
+
+If you found a bug or the module fails to compile you can
+contact syzop@vulnscan.org

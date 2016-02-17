@@ -1,0 +1,14 @@
+v1.2 (Nov 17, 2015)
+- Support for UnrealIRCd 4
+- Auto-detect UnrealIRCd version and compile & install
+
+v1.1
+- Version bump
+- Code cleanups
+- Performance improvements for +c
+- Fixed the 'cannot send' message (+c), it should now appear in the channel window.
+  (Of course, this is channel-specific, but in mIRC it would do so now).
+- The build script now silently runs 'make install' as well.
+
+v0.1 (Dec 21, 2003)
+- Initial release

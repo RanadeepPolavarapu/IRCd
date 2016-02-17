@@ -1,0 +1,24 @@
+v0.1, Fri Jun 24 21:08:33 UTC 2005
+- First release, tagged as experimental
+
+v1.0, Sat Sep 10 00:17:35 CEST 2005
+- Now no longer experimental
+- Windows version
+- No real code changes
+
+v1.1, internal
+- Added USERHOST optional feature, sponsored by Deltaanime (www.deltaanime.net)
+
+v2.0, Mon Jan 22 20:03:19 CET 2007
+- Fixed +b ~T:bLoCk:blah stuff (now always lowercase 'block')
+- Added 'censor' feature, this replaces "bad words" with <censored>,
+  sponsored by HyperMutt LLC (www.hypermutt.net)
+
+v2.1, Tue Oct 26 20:26:35 CEST 2010
+- If you disabled the censor feature (#undef CENSORFEATURE) the module would
+  fail to compile, reported by seraphim.
+- Also removed the unused spacefilter function
+
+v2.2, Sat Oct 17 20:06:19 CEST 2015
+- UnrealIRCd 4 support
+- Auto-detect UnrealIRCd version and compile & install

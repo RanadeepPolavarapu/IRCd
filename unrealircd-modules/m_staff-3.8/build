@@ -1,0 +1,112 @@
+#!/bin/sh
+umask 066
+
+MODULE=m_staff
+MOD_MAIL=syzop@vulnscan.org
+MOD_REQUIRE_VERSION="Unreal3.2.10.x or higher"
+TMPF=unrealmod.tmp.$$
+UNRLVER="32"
+
+if [ -s ./build.settings ]; then
+	. ./build.settings
+fi
+
+echo "Enter the full path to your UnrealIRCd directory (ie: /home/blah/Unreal3.2):"
+if [ "$DEFAULT_UPATH" != "" ]; then
+	echo '[ Enter =' $DEFAULT_UPATH ']'
+fi
+read UPATH
+if [ "$UPATH" = "" ]; then
+	UPATH="$DEFAULT_UPATH"
+fi
+
+if [ "$UPATH" = "" ]; then
+	echo "Uh, you didnt't specify a path..."
+	exit
+fi
+
+if [ ! -d "$UPATH" ]; then
+	echo "That's not a valid directory"
+	exit
+fi
+
+if [ ! -f "$UPATH/Unreal.nfo" ]; then
+	if [ -f "$UPATH/configure.ac" ]; then
+		echo "UnrealIRCd 4 detected."
+		UNRLVER="4"
+	else
+		echo "That's not an UnrealIRCd installation dir!"
+		echo "I need the full path to an compiled UnrealIRCd directory!"
+		exit
+	fi
+fi
+
+if [ ! -f "$UPATH/include/setup.h" ]; then
+	echo "That looks like an UnrealIRCd directory, however you"
+	echo "haven't compiled UnrealIRCd yet. You have to do that first."
+	exit
+fi
+
+if [ ! -d "$UPATH/src/modules" ]; then
+	echo "Uhhh... thats a weird UnrealIRCd directory!"
+	exit
+fi
+
+CHECKVER=`grep -c HOOKTYPE_TKL_EXCEPT "$UPATH/include/modules.h"`
+if [ "$CHECKVER" = 0 ]; then
+	echo Your UnrealIRCd version is too old, you need $MOD_REQUIRE_VERSION
+	exit
+fi
+
+# Update..
+echo '#!/bin/sh' >build.settings
+echo 'DEFAULT_UPATH="'$UPATH'"' >>build.settings
+
+# Lets go
+if [ "$UNRLVER" = "32" ]; then
+	cp $MODULE.$UNRLVER.c "$UPATH/src/modules/$MODULE.c"
+else
+	cp $MODULE.$UNRLVER.c "$UPATH/src/modules/third/$MODULE.c"
+fi
+
+if [ $? != 0 ]; then
+	echo Error: Copying file to "$UPATH/src/modules" failed.
+	exit
+fi
+
+cd $UPATH
+
+rm -f src/modules/$MODULE.so src/modules/third/$MODULE.so
+if [ "$UNRLVER" = "32" ]; then
+make custommodule MODULEFILE=$MODULE
+else
+make
+fi
+if [ $? != 0 ]; then
+	echo Compiling failed.
+	echo "- Do you have $MOD_REQUIRE_VERSION"
+	echo "- Do you have correct write permissions?"
+	echo "- Maybe this version is outdated, see $MOD_URL for the latest version."
+	echo "If all of this didnt work, mail $MOD_MAIL"
+	unset EXLIBS
+	exit 1
+fi
+unset EXLIBS
+
+make install 1>/dev/null 2>&1
+
+echo
+echo ====================================================================
+echo "The module was succesfully compiled and installed in your modules directory."
+echo
+echo "You now need to add the following command to your UnrealIRCd"
+echo "config file (usually unrealircd.conf):"
+if [ "$UNRLVER" = "32" ]; then
+echo 'loadmodule "src/modules/'$MODULE'.so";'
+else
+echo 'loadmodule "third/'$MODULE'";'
+fi
+echo "(after the other loadmodule commands in the config file for example)"
+echo Then /rehash and the module should be loaded.
+echo "If you have problems you can mail $MOD_MAIL"
+echo ====================================================================

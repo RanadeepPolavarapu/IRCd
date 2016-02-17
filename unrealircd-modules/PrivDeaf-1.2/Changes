@@ -1,0 +1,15 @@
+0.0.2: added U-lines and servers to "allow messages from"-list.
+0.0.3: nothing really changed, only installer now uses /bin/sh 
+       and fixed README typo.
+0.0.4: again an install fix: ./build now runs fine at FreeBSD.
+0.0.5: fixed a problem where the module would stopped working
+       after /rehash! (bad return values)
+0.0.6: Cleaned the whole thing up, this fixes umode +D being lost
+       after a /rehash. Also made it send a notice in case someone
+       tries to msg a +D user.
+1.0:   Made it so messages to yourself are still allowed. This
+       fixes, for example, the user being bothered every minute
+       because their mIRC script sends a msg to themselves every
+       minute to check lag.
+1.2:   UnrealIRCd 4 support
+       Module renamed: m_privdeaf -> privdeaf

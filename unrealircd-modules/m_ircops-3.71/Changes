@@ -1,0 +1,40 @@
+Version 3.71:
+- UnrealIRCd 4: Show IRCOps on other servers too (duh!)
+
+Version 3.7:
+- Updates for UnrealIRCd 4
+- Auto-detect UnrealIRCd version and compile & install the module
+
+Version 3.6:
+- Fixed a (harmless) compile warning regarding IsSkoAdmin.
+
+Version 3.5:
+- Taken over by Syzop
+
+Revision 3.2  2004/07/11 23:39:48  angrywolf
+- Fixed a bunch of win32 compilation errors appearing with
+  Unreal3.2.1 (reported by Zell).
+- Minimal Unreal version requirement is now 3.2-beta18.
+
+Revision 3.1  2004/03/23 19:00:53  angrywolf
+- Added a new documentation.
+
+Revision 2.4  2004/03/08 21:25:24  angrywolf
+- Fixed some bugs that could cause crash if you compile the module
+  statically (for example, under Windows).
+
+Revision 2.3  2003/12/01 11:46:08  angrywolf
+- Replaced add_Command and del_Command with CommandAdd and CommandDel.
+
+Revision 2.2  2003/10/07 18:38:48  angrywolf
+- Now, instead of real name, the name of the server the
+  client is using will be shown (requested by Jollino).
+
+Revision 2.1  2003/08/31 20:27:20  angrywolf
+- From now on, I'm using RCS
+
+2003-06-17: Recoded the whole module, based on TR-IRCD's m_ircops
+	    command. (Thanks to SerDar for his suggestion.)
+2003-06-11: Now local operators are displayed too (suggested by
+            ChRiS)
+2003-06-01: Coded m_ircops (requested by Some3333 and LRL)

@@ -1,0 +1,73 @@
+v3.8:
+- Support for UnrealIRCd 4
+- Auto-detect UnrealIRCd version and compile & install the module
+- Add m_staff.conf as example, rather than the README
+
+v3.2:
+- Fixes to make it compile on 3.2.9 from Nath & myself
+
+v3.1:
+- Bugfix, specified filename was not working
+
+v3.0:
+- I (Syzop) took over development of m_staff.
+- No important changes (AFAIK)
+
+PREVIOUS VERSIONS:
+This is the changelog provided by AngryWolf:
+
+Revision 2.5  2004/03/27 18:04:51  angrywolf
+- Made some documentation corrections.
+
+Revision 2.4  2004/03/08 21:26:11  angrywolf
+- Fixed some bugs that could cause crash if you compile the module
+  statically (for example, under Windows).
+
+Revision 2.3  2004/02/15 10:25:08  angrywolf
+- Fixed a compilation problem, reported by Stoebi.
+
+Revision 2.2  2004/02/14 22:29:38  angrywolf
+- Updated docs.
+
+Revision 2.1  2004/02/13 15:41:59  angrywolf
+- Added a new directive: set::staff-file.
+- Added support for remotely including the network staff file.
+- Wrote a separate documentation.
+
+Revision 1.11  2004/02/03 10:43:32  angrywolf
+- Windows compilation fixes.
+
+Revision 1.10  2003/12/13 07:33:54  angrywolf
+- Made it so both users of Unreal3.2-beta19 and devel CVS
+  may download the module from the same location.
+
+Revision 1.9  2003/12/01 18:37:19  angrywolf
+- Replaced add_Command and del_Command with CommandAdd and CommandDel.
+
+Revision 1.8  2003/11/27 13:30:43  angrywolf
+- Minor fix on hooks.
+
+Revision 1.7  2003/11/26 21:49:23  angrywolf
+- Doc update.
+
+Revision 1.6  2003/11/26 21:32:37  angrywolf
+- Updated the module to deal with the new syntax of
+  HOOKTYPE_REHASFLAG that was recently changed in
+  devel CVS (ReleaseID 1.1.1.1.2.1.2.1.2.1995).
+
+Revision 1.5  2003/11/16 18:31:13  angrywolf
+*** empty log message ***
+
+Revision 1.4  2003/11/16 18:18:00  angrywolf
+- Updated documentation.
+
+Revision 1.3  2003/11/16 10:22:39  angrywolf
+- Replaced numerics to 700-703 (clients can disable /motd, so
+  they might not show the output of /staff, hence using MOTD
+  numerics wasn't a great idea).
+
+Revision 1.2  2003/11/15 12:26:46  angrywolf
+- Replaced NOTICEs to numerics used by /motd & /opermotd.
+
+Revision 1.1  2003/11/14 20:09:06  angrywolf
+Initial revision
