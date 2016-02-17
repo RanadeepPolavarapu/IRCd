@@ -3,5 +3,5 @@
 echo "[INFO]: Installing libssl-dev for UnrealIRCd SSL connections"
 apt-get -y install libssl-dev
 
-echo "[INFO]: Installing gmake for building Anope services"
-apt-get -y install gmake
+echo "[INFO]: Installing cmake for building Anope services"
+apt-get -y install cmake
